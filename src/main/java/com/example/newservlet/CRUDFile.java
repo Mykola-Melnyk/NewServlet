@@ -29,6 +29,17 @@ public class CRUDFile extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         fileName = request.getPathInfo();
+        File file = new File(pathToFile + fileName);
+        PrintWriter writer = response.getWriter();
+        writer.println("<html><body>");
+        if (file.createNewFile()) {
+            System.out.println("File " + file.getName() + " created.");
+            writer.println("<h1>File " + file.getName() + " created.</h1>");
+        } else {
+            System.out.println("File " + file.getName() + " already exists.");
+            writer.println("<h1>File " + file.getName() + " already exists.</h1>");
+        }
+        writer.println("</body></html>");
     }
 
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
