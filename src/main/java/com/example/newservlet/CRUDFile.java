@@ -57,6 +57,30 @@ public class CRUDFile extends HttpServlet {
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         fileName = request.getPathInfo();
+        File file = new File(pathToFile + fileName);
+        PrintWriter writer = response.getWriter();
+        writer.println("<html><body>");
+
+        if (!file.exists()) {
+            System.out.println("File " + file.getName() + " does not exist.");
+            writer.printf("<h1>File '%s' does not exit.</h1>", file.getName());
+            writer.println("</body></html>");
+            return;
+        }
+
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            BufferedReader bufferedReader = request.getReader();
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+                content.append(System.lineSeparator());
+            }
+            fileWriter.write(content.toString());
+            System.out.printf("Writing '%s' to file '%s'.", content.toString(), file.getName());
+            writer.printf("<h1>Writing '%s' to file '%s'.</h1>", content.toString(), file.getName());
+        }
+
     }
 
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
