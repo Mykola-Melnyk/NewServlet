@@ -6,7 +6,7 @@ import java.util.Objects;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "authServlet", value = "/authServlet")
 public class AuthServlet1 extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -19,6 +19,7 @@ public class AuthServlet1 extends HttpServlet {
         System.out.println(myLogin + " " + myPassword);
         PrintWriter writer = response.getWriter();
         writer.println("<html><body>");
+
         if (Objects.equals(hardLogin, myLogin) && Objects.equals(hardPassword, myPassword)) {
             System.out.println("Login successful!");
             writer.println("<h1>Login successful</h1>");
