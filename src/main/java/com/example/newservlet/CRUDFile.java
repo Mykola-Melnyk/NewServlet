@@ -5,9 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 @WebServlet(name = "CRUDFile", value = "/table/*")
 public class CRUDFile extends HttpServlet {
@@ -24,6 +22,20 @@ public class CRUDFile extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         fileName = request.getPathInfo();
+        PrintWriter writer = response.getWriter();
+        writer.println("<html><body><pre><h1>");
+        try (FileInputStream fileInputStream = new FileInputStream(pathToFile + fileName)) {
+            int dataByte;
+            while ((dataByte = fileInputStream.read()) != -1) {
+                writer.print((char) dataByte);
+            }
+            writer.println("</h1></pre></body></html>");
+        } catch (FileNotFoundException fnfe) {
+            writer.print("<h1>File doesn't exist</h1>");
+            writer.println("</h1></body></html>");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
