@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 
-@WebServlet(name = "DbExplorer", value = "/tables")
 public class DbExplorer extends HttpServlet {
     private String pathToFiles;
 

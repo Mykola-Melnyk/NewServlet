@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 
-@WebServlet(name = "CRUDFile", value = "/table/*")
 public class CRUDFile extends HttpServlet {
     private String pathToFile;
     private String fileName;

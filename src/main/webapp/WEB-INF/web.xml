@@ -12,6 +12,41 @@
         <filter-name>myFilter</filter-name>
         <url-pattern>/table/*</url-pattern>
         <url-pattern>/tables</url-pattern>
-        <url-pattern>/infoServlet</url-pattern>
     </filter-mapping>
+
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>com.example.newservlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/authServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>com.example.newservlet.LogOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/logOutServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DbExplorer</servlet-name>
+        <servlet-class>com.example.newservlet.DbExplorer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DbExplorer</servlet-name>
+        <url-pattern>/tables</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CRUDFile</servlet-name>
+        <servlet-class>com.example.newservlet.CRUDFile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CRUDFile</servlet-name>
+        <url-pattern>/table/*</url-pattern>
+    </servlet-mapping>
 </web-app>
