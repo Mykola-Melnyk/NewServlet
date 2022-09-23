@@ -6,8 +6,8 @@ import java.util.Objects;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "authServlet1", value = "/authServlet")
-public class AuthServlet1 extends HttpServlet {
+@WebServlet(name = "authServlet", value = "/authServlet")
+public class AuthServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");

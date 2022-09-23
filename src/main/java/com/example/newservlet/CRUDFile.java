@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.*;
+import java.util.HashMap;
 
 @WebServlet(name = "CRUDFile", value = "/table/*")
 public class CRUDFile extends HttpServlet {
@@ -70,9 +71,11 @@ public class CRUDFile extends HttpServlet {
 
         try (FileWriter fileWriter = new FileWriter(file)) {
             String body = ReqBodyReader.readBody(request);
-            fileWriter.write(body);
-            System.out.printf("Writing '%s' to file '%s'.", body, file.getName());
-            writer.printf("<h1>Writing '%s' to file '%s'.</h1>", body, file.getName());
+            HashMap<String, String> reqMap = JSONProcessor.parseJSON(body);
+            String content = reqMap.get("content").replaceAll(",", "\n");
+            fileWriter.write(content);
+            System.out.printf("Writing '%s' to file '%s'.", content, file.getName());
+            writer.printf("<h1>Writing '%s' to file '%s'.</h1>", content, file.getName());
         }
 
     }
