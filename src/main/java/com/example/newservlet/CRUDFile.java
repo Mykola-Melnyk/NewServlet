@@ -69,16 +69,10 @@ public class CRUDFile extends HttpServlet {
         }
 
         try (FileWriter fileWriter = new FileWriter(file)) {
-            BufferedReader bufferedReader = request.getReader();
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                content.append(line);
-                content.append(System.lineSeparator());
-            }
-            fileWriter.write(content.toString());
-            System.out.printf("Writing '%s' to file '%s'.", content.toString(), file.getName());
-            writer.printf("<h1>Writing '%s' to file '%s'.</h1>", content.toString(), file.getName());
+            String body = ReqBodyReader.readBody(request);
+            fileWriter.write(body);
+            System.out.printf("Writing '%s' to file '%s'.", body, file.getName());
+            writer.printf("<h1>Writing '%s' to file '%s'.</h1>", body, file.getName());
         }
 
     }
