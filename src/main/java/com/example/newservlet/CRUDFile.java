@@ -14,10 +14,7 @@ public class CRUDFile extends HttpServlet {
     private String fileName;
 
     public void init() {
-        pathToFile = this.getClass()
-                .getClassLoader()
-                .getResource("db/")
-                .getPath();
+        pathToFile = this.getClass().getClassLoader().getResource("db/").getPath();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -59,23 +56,26 @@ public class CRUDFile extends HttpServlet {
         response.setContentType("text/html");
         fileName = request.getPathInfo();
         File file = new File(pathToFile + fileName);
-        PrintWriter writer = response.getWriter();
-        writer.println("<html><body>");
 
         if (!file.exists()) {
+            PrintWriter writer = response.getWriter();
+            writer.println("<html><body>");
             System.out.println("File " + file.getName() + " does not exist.");
             writer.printf("<h1>File '%s' does not exit.</h1>", file.getName());
             writer.println("</body></html>");
             return;
         }
 
-        try (FileWriter fileWriter = new FileWriter(file)) {
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
             String body = ReqBodyReader.readBody(request);
             HashMap<String, String> reqMap = JSONProcessor.parseJSON(body);
             String content = reqMap.get("content").replaceAll(",", "\n");
-            fileWriter.write(content);
+            fileWriter.write(content + "\n");
             System.out.printf("Writing '%s' to file '%s'.", content, file.getName());
+            PrintWriter writer = response.getWriter();
+            writer.println("<html><body>");
             writer.printf("<h1>Writing '%s' to file '%s'.</h1>", content, file.getName());
+            writer.println("</body></html>");
         }
 
     }

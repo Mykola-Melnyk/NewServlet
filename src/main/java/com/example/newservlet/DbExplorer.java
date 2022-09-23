@@ -27,7 +27,7 @@ public class DbExplorer extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.println("<html><body>");
         for (String file : dbFiles) {
-           writer.println("<h1>*" + file + "</h1>");
+            writer.println("<h1>*" + file + "</h1>");
         }
         writer.println("</body></html>");
 
