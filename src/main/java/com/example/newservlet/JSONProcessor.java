@@ -9,7 +9,8 @@ import java.util.HashMap;
 public class JSONProcessor {
     public static HashMap<String, String> parseJSON(String stringJSON) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        TypeReference<HashMap<String, String>> type = new TypeReference<HashMap<String, String>>() {};
+        TypeReference<HashMap<String, String>> type = new TypeReference<>() {
+        };
         return mapper.readValue(stringJSON, type);
     }
 }
